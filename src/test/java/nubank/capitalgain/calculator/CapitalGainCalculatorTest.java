@@ -20,8 +20,8 @@ class CapitalGainCalculatorTest {
     void testEmptyInitialState() {
         var calculator = new CapitalGainCalculator();
 
-        assertEquals(ZERO, calculator.getCurrentAverage());
-        assertEquals(0, calculator.getQuantity());
+        assertEquals(ZERO, calculator.getProcessOperation().getCurrentAverage());
+        assertEquals(0, calculator.getProcessOperation().getQuantity());
     }
 
     @Test
@@ -34,8 +34,8 @@ class CapitalGainCalculatorTest {
                 new Operation(OperationType.buy, valueOf(20000), 3)
         ));
 
-        assertEquals(valueOf(16000), calculator.getCurrentAverage().setScale(0));
-        assertEquals(5, calculator.getQuantity());
+        assertEquals(valueOf(16000), calculator.getProcessOperation().getCurrentAverage().setScale(0));
+        assertEquals(5, calculator.getProcessOperation().getQuantity());
     }
 
     @Test
@@ -44,13 +44,13 @@ class CapitalGainCalculatorTest {
         var calculator = new CapitalGainCalculator();
 
         // initial quantity is zero
-        assertEquals(0, calculator.getQuantity());
+        assertEquals(0, calculator.getProcessOperation().getQuantity());
 
         // process a buy of 4 units
         calculator.processAll(List.of(new Operation(OperationType.buy, valueOf(123.45), 4)));
 
         // quantity should reflect the bought units
-        assertEquals(4, calculator.getQuantity());
+        assertEquals(4, calculator.getProcessOperation().getQuantity());
     }
 
     @Test
@@ -60,15 +60,15 @@ class CapitalGainCalculatorTest {
         // Buy stocks at $10.00
         calculator.processAll(List.of(new Operation(OperationType.buy, valueOf(10.00), 10000)));
 
-        assertEquals(valueOf(10.00).setScale(2, HALF_UP), calculator.getCurrentAverage());
-        assertEquals(10000, calculator.getQuantity());
+        assertEquals(valueOf(10.00).setScale(2, HALF_UP), calculator.getProcessOperation().getCurrentAverage());
+        assertEquals(10000, calculator.getProcessOperation().getQuantity());
 
         // Sell all stocks - this should reset average to ZERO
         calculator.processAll(List.of(new Operation(OperationType.sell, valueOf(15.00), 10000)));
 
         // Verify quantity is 0
-        assertEquals(0, calculator.getQuantity());
-        assertEquals(ZERO, calculator.getCurrentAverage(),
+        assertEquals(0, calculator.getProcessOperation().getQuantity());
+        assertEquals(ZERO, calculator.getProcessOperation().getCurrentAverage(),
                 "Average must be reset to ZERO when all stocks are sold");
     }
 
@@ -80,12 +80,12 @@ class CapitalGainCalculatorTest {
         // buy 5 units
         calculator.processAll(List.of(new Operation(OperationType.buy, valueOf(1000), 5)));
 
-        assertEquals(5, calculator.getQuantity());
+        assertEquals(5, calculator.getProcessOperation().getQuantity());
 
         // sell 3 units -> remaining should be 2
         calculator.processAll(List.of(new Operation(OperationType.sell, valueOf(1200), 3)));
 
-        assertEquals(2, calculator.getQuantity());
+        assertEquals(2, calculator.getProcessOperation().getQuantity());
     }
 
     @Test
@@ -112,7 +112,7 @@ class CapitalGainCalculatorTest {
         var result = calculator.processAll(List.of(operationBuy, operationSell));
 
         assertEquals(0d, result.getLast().getValue());
-        assertEquals(0, calculator.getQuantity());
+        assertEquals(0, calculator.getProcessOperation().getQuantity());
     }
 
 }
