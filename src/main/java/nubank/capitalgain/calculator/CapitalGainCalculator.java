@@ -75,9 +75,10 @@ public class CapitalGainCalculator {
     }
 
     private double calculateTax(BigDecimal operationGain) {
-//        if (operationGain.compareTo(ZERO) < 0) {
-//            return 0.0;
-//        }
+        // fix bug
+        if (operationGain.compareTo(ZERO) < 0) {
+            return 0.0;
+        }
 
         return TAX.multiply(operationGain).doubleValue();
     }
