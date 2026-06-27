@@ -99,12 +99,16 @@ When you sell at a loss, you should use the loss from one ticker toward any othe
 
 ```
 [{"operation":"buy", "unit-cost":10, "quantity": 10000, "ticker":"AAPL"},
-{"operation":"buy", "unit-cost":15, "quantity": 10000, "ticker":"MANU"}, {"operation":"sell", "unit-cost":20, "quantity": 10000, "ticker":"AAPL"},
+{"operation":"buy", "unit-cost":15, "quantity": 10000, "ticker":"MANU"}, 
+{"operation":"sell", "unit-cost":20, "quantity": 10000, "ticker":"AAPL"},
 {"operation":"sell", "unit-cost":30, "quantity": 10000, "ticker":"MANU"}]
 ```
 
 **Output #1**
+
+```
 [{"tax":0}, {"tax":0}, {"tax":20000}, {"tax":30000}]
+```
 
 ### Input #2
 
@@ -116,7 +120,10 @@ When you sell at a loss, you should use the loss from one ticker toward any othe
 ```
 
 **Output #2**
+
+```
 [{"tax":0}, {"tax":0}, {"tax":0}, {"tax":20000}]
+```
 
 ### Input #3
 
@@ -128,4 +135,7 @@ When you sell at a loss, you should use the loss from one ticker toward any othe
 ```
 
 **Output #3**
+
+```
 [{"tax":0}, {"tax":0}, {"tax":30000}, {"tax":0}]
+```
