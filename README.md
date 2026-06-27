@@ -15,19 +15,15 @@ Your task is to correctly process a stream of operations, maintaining the state 
 ### Core Tax Rules
 
 1. **Tax Rate:** The tax rate is **20%** of the net profit from a sale.
-
 2. **Cost Basis (Weighted Average):** The cost of the stock (used to calculate profit/loss on a sale) must be tracked using a **Weighted Average Cost**. When multiple purchases are made, the cost basis for all held stocks is the weighted average of the prices paid.
-
 3. **Taxable Operations:** Only **sell** operations can generate capital gains tax. **Buy** operations never result in a tax liability.
-
 4. **No Tax on Loss:** If a **sale** results in a net **loss** (the selling price is less than the Weighted Average Cost), **no tax** is due.
 
 
 ### Quick Example (Illustrating the Rules)
 
-|   |   |   |   |   |   |
-|---|---|---|---|---|---|
 |Operation|Unit Cost|Quantity|Holdings Change|Weighted Avg. Cost|Tax Due|
+|---|---|---|---|---|---|
 |**Buy**|$10.00|10,000|Holdings: 10,000|$10.00|$0.00|
 |**Sell**|$20.00|5,000|Profit: 5,000 * ($20.00 - $10.00) = $50,000|$10.00|20% of $50,000 = **$10,000.00**|
 |**Sell**|$5.00|3,000|Loss: 3,000 * ($5.00 - $10.00) = -$15,000|$10.00|**$0.00** (No tax on loss)|
@@ -73,17 +69,22 @@ NOTE ON THE INITIAL STATE: The original code contains a bug. A specific unit tes
 
 Full test cases and detailed examples are located in
 
-src/test/resources/
+`src/test/resources/`
 
 - explore them as needed!
 
 
 ### Project Structure
 
-src/main/java/nubank/capitalgain/ ├── Main.java # Entry point ├── calculator/CapitalGainCalculator.java └── domain/ # Operation, Tax models
+```
+src/main/java/nubank/capitalgain/ 
+├── Main.java # Entry point 
+├── calculator/CapitalGainCalculator.java 
+└── domain/ # Operation, Tax models
+```
 
+ 
 - **[execution time limit] 30 seconds**
-
 - **[memory limit] 4g**
 
 ----
